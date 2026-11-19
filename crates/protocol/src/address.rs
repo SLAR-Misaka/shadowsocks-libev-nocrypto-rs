@@ -168,7 +168,10 @@ mod tests {
     fn reject_truncation_and_invalid_domains() {
         assert_eq!(
             TargetAddr::decode(&[0x01, 127]),
-            Err(AddressError::Truncated { needed: 7, actual: 2 })
+            Err(AddressError::Truncated {
+                needed: 7,
+                actual: 2
+            })
         );
         assert_eq!(
             TargetAddr::decode(&[0x03, 0]),
@@ -178,7 +181,10 @@ mod tests {
             TargetAddr::decode(&[0x09]),
             Err(AddressError::UnsupportedType(0x09))
         );
-        let too_long = TargetAddr::Domain { host: vec![b'a'; 256], port: 80 };
+        let too_long = TargetAddr::Domain {
+            host: vec![b'a'; 256],
+            port: 80,
+        };
         assert_eq!(
             too_long.encode(),
             Err(AddressError::InvalidDomainLength(256))

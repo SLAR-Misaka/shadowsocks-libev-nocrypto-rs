@@ -28,7 +28,10 @@ impl Service {
 }
 
 #[derive(Debug, Parser)]
-#[command(version, about = "Rust rewrite scaffold; network forwarding is not implemented yet")]
+#[command(
+    version,
+    about = "Rust rewrite scaffold; network forwarding is not implemented yet"
+)]
 pub struct Cli {
     /// Legacy JSON configuration file (parsing is not yet implemented).
     #[arg(short = 'c', long = "config", value_name = "PATH")]
@@ -57,7 +60,10 @@ pub async fn entrypoint(service: Service) -> ExitCode {
     let cli = Cli::parse();
     if let Some(method) = cli.method.as_deref() {
         if method != "none" {
-            eprintln!("{}: unsupported method {method:?} in Rust MVP", service.name());
+            eprintln!(
+                "{}: unsupported method {method:?} in Rust MVP",
+                service.name()
+            );
             return ExitCode::from(2);
         }
         if !cli.acknowledge_insecure_none {
@@ -82,7 +88,15 @@ mod tests {
     #[test]
     fn cli_accepts_legacy_flag_spellings() {
         let cli = Cli::try_parse_from([
-            "ss-local", "-s", "localhost", "-p", "8388", "-l", "1080", "-m", "none",
+            "ss-local",
+            "-s",
+            "localhost",
+            "-p",
+            "8388",
+            "-l",
+            "1080",
+            "-m",
+            "none",
             "--acknowledge-insecure-none",
         ])
         .expect("parses common flags");

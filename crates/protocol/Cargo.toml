@@ -1,0 +1,11 @@
+[package]
+name = "nocrypto-protocol"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Wire protocol primitives for the Rust rewrite of shadowsocks-libev-nocrypto"
+
+[lints]
+workspace = true
